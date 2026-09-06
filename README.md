@@ -1,6 +1,7 @@
 # Inventario de Almacén — Trabajo 1 (Construcción de Software)
 
 **Estudiante:** José Rodríguez
+**Repositorio:** https://github.com/stakecodex/inventario-almacen-trabajo1
 
 ## Descripción
 
