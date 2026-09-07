@@ -15,14 +15,23 @@ const valoresIniciales = {
 export const InventarioApp = () => {
     const [data, setData] = useState([])
     const [cargando, setCargando] = useState(true)
+    const [errorSync, setErrorSync] = useState(null)
     const [formData, setFormData] = useState(valoresIniciales)
     const [productoEditando, setProductoEditando] = useState(null)
 
     useEffect(() => {
-        const unsubscribe = suscribirProductos((productos) => {
-            setData(productos)
-            setCargando(false)
-        })
+        const unsubscribe = suscribirProductos(
+            (productos) => {
+                setData(productos)
+                setCargando(false)
+                setErrorSync(null)
+            },
+            (error) => {
+                console.error("Error al sincronizar productos:", error)
+                setCargando(false)
+                setErrorSync("No se pudo conectar con la base de datos. Verifica tu conexión y recarga la página.")
+            }
+        )
         return () => unsubscribe()
     }, [])
 
@@ -37,17 +46,26 @@ export const InventarioApp = () => {
     }
 
     const eliminarData = async (id) => {
-        await eliminarProducto(id)
+        try {
+            await eliminarProducto(id)
+        } catch {
+            window.alert("No se pudo eliminar el producto. Verifica tu conexión e intenta de nuevo.")
+        }
     }
 
     const editarData = (item) => {
         setFormData({
-            nombre: item.nombre,
-            categoria: item.categoria,
-            cantidad: item.cantidad,
-            precio: item.precio,
+            nombre: item.nombre ?? "",
+            categoria: item.categoria ?? "",
+            cantidad: item.cantidad !== undefined && item.cantidad !== null ? String(item.cantidad) : "",
+            precio: item.precio !== undefined && item.precio !== null ? String(item.precio) : "",
         })
         setProductoEditando(item)
+    }
+
+    const cancelarEdicion = () => {
+        setFormData(valoresIniciales)
+        setProductoEditando(null)
     }
 
     return(
@@ -56,6 +74,8 @@ export const InventarioApp = () => {
                 <p className="eyebrow">Neon dashboard</p>
                 <h1>Inventario de Almacén</h1>
             </header>
+
+            {errorSync && <p className="error-campo">{errorSync}</p>}
 
             {cargando ? (
                 <p className="loading">Cargando inventario...</p>
@@ -67,6 +87,8 @@ export const InventarioApp = () => {
                             key={productoEditando ? productoEditando.id : "nuevo"}
                             valoresIniciales={formData}
                             agregarData={agregarData}
+                            editando={!!productoEditando}
+                            onCancelar={cancelarEdicion}
                         />
                     </section>
 

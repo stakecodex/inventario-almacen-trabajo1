@@ -7,7 +7,7 @@ import { db } from "./config"
 const productosRef = collection(db, "productos")
 
 // Read en tiempo real
-export const suscribirProductos = (callback) => {
+export const suscribirProductos = (callback, onError) => {
     const q = query(productosRef, orderBy("creadoEn", "desc"))
     return onSnapshot(q, (snapshot) => {
         const productos = snapshot.docs.map((docSnap) => ({
@@ -15,7 +15,7 @@ export const suscribirProductos = (callback) => {
             ...docSnap.data(),
         }))
         callback(productos)
-    })
+    }, onError)
 }
 
 // Create

@@ -133,6 +133,12 @@ h1 {
   box-shadow: 0 0 0 3px rgba(255, 107, 44, 0.15);
 }
 
+.cyber-form input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: var(--panel);
+}
+
 .cyber-form textarea {
   min-height: 120px;
   resize: vertical;
@@ -142,6 +148,12 @@ h1 {
   color: var(--error);
   font-size: 0.74rem;
   letter-spacing: 0.02em;
+}
+
+.actions-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .primary-btn,
@@ -156,10 +168,17 @@ h1 {
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
+.primary-btn:disabled,
+.ghost-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .primary-btn {
-  margin-top: 10px;
   background: var(--orange);
   color: var(--bg);
+  flex: 1;
 }
 
 .primary-btn:hover,
@@ -188,11 +207,44 @@ h1 {
   color: var(--error);
 }
 
+.buscador {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 14px;
+  outline: none;
+  margin-bottom: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buscador:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 44, 0.15);
+}
+
+.tabla-vacia {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 24px 0;
+}
+
 .cyber-table {
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
   border-radius: 8px;
+}
+
+.ordenable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.ordenable:hover {
+  color: var(--orange);
 }
 
 .cyber-table th,
