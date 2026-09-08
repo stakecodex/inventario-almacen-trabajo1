@@ -12,7 +12,4 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 
-// El proyecto de Firebase quedó con una base de datos llamada "default"
-// (sin paréntesis) en vez de la especial "(default)" que el SDK busca
-// por defecto, así que se indica explícitamente el nombre de la base.
 export const db = getFirestore(app, "default")

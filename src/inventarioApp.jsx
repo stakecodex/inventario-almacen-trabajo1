@@ -71,7 +71,7 @@ export const InventarioApp = () => {
     return(
         <div className="cyberpunk-app">
             <header className="app-header">
-                <p className="eyebrow">Neon dashboard</p>
+                <p className="eyebrow">La tiendita de Pepe</p>
                 <h1>Inventario de Almacén</h1>
             </header>
 
